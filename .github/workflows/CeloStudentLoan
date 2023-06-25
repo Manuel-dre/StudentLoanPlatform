@@ -123,13 +123,15 @@ contract StudentLoan {
     }
 
     function _createLoanActivity(address _student, string memory _activityType) internal returns(uint) {
+        unit loanId = loans[_student].activityIds.length;
+
         LoanActivity memory activity = LoanActivity({
-            loanId: loans[_student].activityIds.length,
+            loanId: loansId,
             activityType: _activityType,
             timestamp: block.timestamp
         });
         
         loanActivities.push(activity);
-        return loanActivities.length - 1;
+        return loanId;
     }
 }
