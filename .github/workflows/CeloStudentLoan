@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract StudentLoan {
+
     struct Loan {
         address student;
         uint loanamount;
@@ -26,14 +27,14 @@ contract StudentLoan {
     event LoanApproval(address indexed student, uint loanamount, uint indexed timestamp);
     event LoanDisbursement(address indexed student, uint loanamount, uint indexed timestamp);
     event LoanRepayment(address indexed student, uint loanamount, uint indexed timestamp);
-    
+
     modifier onlyGovernment() {
         // Implementing an access control to allow only authorized government addresses
         // ...
 
         _;
     }
-    
+
     function applyLoan(uint _loanamount, uint _loanduration, uint _interestRate) external {
         // Performing identity verification of the student
         // ...
@@ -51,10 +52,10 @@ contract StudentLoan {
         // Creating a loan activity for the application
         uint activityId = _createLoanActivity(msg.sender, "Loan Application");
         loan.activityIds.push(activityId);
-        
+
         emit LoanApplication(msg.sender, _loanamount, block.timestamp);
     }
-    
+
     function approveLoan(address _student) external onlyGovernment {
         // Performing identity verification of government bodies
         // ...
@@ -70,7 +71,7 @@ contract StudentLoan {
 
         emit LoanApproval(_student, loan.loanamount, block.timestamp);
     }
-    
+
     function disburseLoan(address _student) external onlyGovernment {
         // Loan disbursement 
         // ...
@@ -87,7 +88,7 @@ contract StudentLoan {
 
         emit LoanDisbursement(_student, loan.loanamount, block.timestamp);
     }
-    
+
     function repayLoan(address _student) external payable {
         // Loan repayment
         // ...
@@ -123,14 +124,14 @@ contract StudentLoan {
     }
 
     function _createLoanActivity(address _student, string memory _activityType) internal returns(uint) {
-        unit loanId = loans[_student].activityIds.length;
+        uint loanId = loans[_student].activityIds.length;
 
         LoanActivity memory activity = LoanActivity({
-            loanId: loansId,
+            loanId: loanId,
             activityType: _activityType,
             timestamp: block.timestamp
         });
-        
+
         loanActivities.push(activity);
         return loanId;
     }
