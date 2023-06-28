@@ -9,7 +9,7 @@ async function main() {
   const accounts = await web3.eth.getAccounts();
   const contractOwner = accounts[0];
 
-  client.addAccount('<PRIVATE_KEY>'); // Replace <PRIVATE_KEY> with the private key of the contract deployer's Celo account.
+  client.addAccount('PRIVATE-KEY'); // Replace PRIVATE-KEY with the private key of our Celo account(e.g 0xd15b7ab21a95c9f2eb518a702d177ff6d15e1f5fb9d5038fc408b7e262f9b235).
 
   const netId = await web3.eth.net.getId();
   const network = await client.web3.eth.net.getNetworkType();
@@ -42,7 +42,7 @@ async function deployContract() {
 }
 
 async function interactWithContract() {
-  const contractAddress = '<CONTRACT_ADDRESS>'; // Replace <CONTRACT_ADDRESS> with the address of the deployed contract.
+  const contractAddress = 'CONTRACT-ADDRESS'; // Replace 'CONTRACT-ADDRESS' with the address of the deployed contract.
 
   // Load the contract instance
   const contract = new web3.eth.Contract(StudentLoanContract.abi, contractAddress);
@@ -52,7 +52,7 @@ async function interactWithContract() {
   const loanAmount = 1000;
   const loanDuration = 12;
   const interestRate = 5;
-  const verificationToken = '<SOCIALCONNECT_VERIFICATION_TOKEN>'; // Replace <SOCIALCONNECT_VERIFICATION_TOKEN> with the actual verification token from SocialConnect.
+  const verificationToken = 'SOCIALCONNECT-VERIFICATION-TOKEN'; // Enter your verification token from SocialConnect.
 
   // Verify the user's identity using SocialConnect
   const verifiedAddress = await verifyIdentity(verificationToken);
@@ -71,7 +71,7 @@ async function interactWithContract() {
 }
 
 async function verifyIdentity(verificationToken) {
-  const socialConnect = new SocialConnect('<SOCIALCONNECT_API_KEY>'); // Replace <SOCIALCONNECT_API_KEY> with your actual SocialConnect API key.
+  const socialConnect = new SocialConnect('SOCIALCONNECT-API-KEY'); // Enter the SocialConnect API key from the provider.
   
   try {
     const result = await socialConnect.verify(verificationToken);
